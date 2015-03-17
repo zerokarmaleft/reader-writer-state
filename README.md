@@ -16,6 +16,7 @@ REPL.
 ```
 $ git clone https://github.com/zerokarmaleft/reader-writer-state
 $ cd reader-writer-state
+$ cabal sandbox init
 $ cabal install --only-dependencies
 $ cabal repl
 ```
