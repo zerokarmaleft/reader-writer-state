@@ -36,10 +36,9 @@ can regard as a relatively small standard library.
 ## Writer
 
 Let's start by creating a purely functional logger. You want a pure function
-that implements some useful computation and returns a result, yet also logs some
-messages elsewhere so that you have an accounting for things that were
-done. Logging seems intrinsically *un-pure*. How can we possibly write a pure
-function?
+that implements some useful computation and returns a value, yet also logs some
+messages elsewhere so that you have an accounting for things that were done. At
+first glance, logging seems intrinsically *un-pure*.
 
 You can easily write log messages out to the console in JavaScript:
 
@@ -60,8 +59,8 @@ build it back up in a purely functional style and gain insight along the way.
 
 What's the type of the `log` function? It accepts no arguments and returns no
 result. In Haskell, the type might be expressed as `() -> ()` where `()` is
-pronounced 'unit'. `log` is invoked *solely* for its side-effects of printing a
-message to the screen. It also tracks how many times it's been invoked, and
+pronounced 'unit'. `log` is invoked *solely* for its side effects of printing a
+message to the console. It also tracks how many times it's been invoked, and
 includes the count as part of the message.
 
 A pure function *must* return a value, so let's rewrite `log` to return *a pair*
@@ -78,9 +77,9 @@ newtype Writer w a = Writer w a
 
 where `w` is the type of the log - the values we want to accumulate - and `a` is
 the type of the return value for the pure computation. In our case, `w` is just
-a String. We still want logged computations be able to return any type of value,
-so we leave the `a` type paramter untouched. Let's create a type synonym so our
-intent is a bit clearer.
+a String. We still want logged computations to be able to return any type of
+value, so we leave the `a` type parameter untouched. Let's create a type synonym
+so our intent is a bit clearer.
 
 ```
 type PureLogger a = Writer String a
@@ -165,7 +164,7 @@ sumOfSquares1 x y =
      return $ xSquared + ySquared
 ```
 
-We use `logMessage` in `sumOfSquares1` to log the input parameters and the
+We use `logMessage1` in `sumOfSquares1` to log the input parameters and the
 intermediate, squared results. The result of the sum is returned as the first
 element of the payload.
 
