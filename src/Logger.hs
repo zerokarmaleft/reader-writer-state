@@ -11,7 +11,10 @@ logMessage1 :: String -> PureLogger ()
 logMessage1 message =
   do tell $ message ++ "\n"
      return ()
-            
+
+sumOfSquares :: Int -> Int -> Int
+sumOfSquares x y = (x * x) + (y * y)
+
 sumOfSquares1 :: Int -> Int -> PureLogger Int
 sumOfSquares1 x y =
   do logMessage1 $ "Input parameters: " ++ show x ++ " and " ++ show y
