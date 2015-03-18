@@ -150,8 +150,16 @@ sumOfSquares :: Int -> Int -> Int
 sumOfSquares x y = (x * x) + (y * y)
 ```
 
-`sumOfSquares` is, of course, a pure function that returns the sum of the
-squares of `x` and `y`. Now let's add logging:
+`sumOfSquares` is, of course, a pure function that returns the sum of
+the squares of `x` and `y`. If we call `sumOfSquares` on `4` and `5`,
+we'll get back a normal `Int` value:
+
+```
+Prelude> sumOfSquares 4 5
+41
+```
+
+Now let's add logging:
 
 ```
 sumOfSquares1 :: Int -> Int -> PureLogger Int
@@ -164,9 +172,12 @@ sumOfSquares1 x y =
      return $ xSquared + ySquared
 ```
 
-We use `logMessage1` in `sumOfSquares1` to log the input parameters and the
-intermediate, squared results. The result of the sum is returned as the first
-element of the payload.
+This looks quite a bit busier, but we're making use of temporary
+variables and `logMessage1` in `sumOfSquares1` to log the input
+parameters and the intermediate, squared results without repeating
+calculations. The return value is a pair, with the result of the sum
+as the first element, and the result of the log state as the second
+element.
 
 Let's check it out in GHCi:
 
